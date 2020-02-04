@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+
+    <body>
+        {% if error %}
+        <div class="alert alert-danger" role="alert" id="error-div">
+            {{ error }}
+          </div>
+        {% endif %}
+
+        First Name: {{values[1]}}<br>
+        Last Name: {{values[2]}}<br>
+        Email ID: {{values[3]}}<br>
+        <br>
+        <h2>File List</h2>
+        
+        {% if files %}
+        <table>
+            <tr>
+                <th>File Name</th>
+                <th>File Content</th>
+            </tr>
+            {%for file in files%} 
+            <tr>
+                <td>{{file[0]}}</td> 
+                <td>{{file[1]}}</td> 
+            </tr>
+            {%endfor%} 
+        </table>
+        {% else %}
+            No Files Uploaded
+        {% endif %}
+        <br>
+        <h3>Upload a file</h3>
+        <form action="uploadFile" method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+            <input type="hidden" value="{{values[0]}}" name="username"> 
+            <input type="hidden" value="{{values[1]}}" name="first_name"> 
+            <input type="hidden" value="{{values[2]}}" name="last_name"> 
+            <input type="hidden" value="{{values[3]}}" name="email_id"> 
+        </form>
+    </body>
+</html>
